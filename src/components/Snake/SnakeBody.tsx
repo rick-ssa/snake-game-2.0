@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ISnakePiece } from "../models/ISnakePiece";
+import { ISnakePiece } from "../../models/ISnakePiece";
 
 const SnakeBody = styled.div <{ $snakePiece: ISnakePiece}> `
     position: absolute;

@@ -1,5 +1,5 @@
-import { roles } from "../enums/Roles"
-import { TSnake } from "../models/TSnake"
+import { roles } from "../../enums/Roles"
+import { TSnake } from "../../models/TSnake"
 import SnakeBody from "./SnakeBody"
 
 const Snake = ({snake}:{snake:TSnake}) => {

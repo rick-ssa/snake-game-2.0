@@ -1,5 +1,5 @@
 import React from 'react';
-import Snake from './components/Snake';
+import Snake from './components/Snake/Snake';
 import { size } from './enums/Size';
 
 function App() {

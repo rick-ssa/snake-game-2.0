@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TSnake } from '../models/TSnake';
 import { size } from '../enums/Size';
-import Snake from '../components/Snake';
+import Snake from '../components/Snake/Snake';
 import { roles } from '../enums/Roles';
 
 describe('render snake', () => {
