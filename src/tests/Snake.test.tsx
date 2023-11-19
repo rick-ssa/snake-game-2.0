@@ -4,19 +4,21 @@ import { TSnake } from '../models/TSnake';
 import { size } from '../enums/Size';
 import Snake from '../components/Snake/Snake';
 import { roles } from '../enums/Roles';
+import moveSnake from '../functions/moveSnake';
+import { keyboardArrows } from '../enums/KeyboardArrows';
 
 const mockSnake:TSnake = [
     {
         width: size.SNAKE_BODY,
         height: size.SNAKE_BODY,
-        left: 10,
+        left: 30,
         top: 10,
     },
   
     {
         width: size.SNAKE_BODY,
         height: size.SNAKE_BODY,
-        left: 10,
+        left: 20,
         top: 10,
     },   
     
@@ -63,5 +65,39 @@ describe('render snake', () => {
         const bodyElement = screen.getByRole(roles.SNAKE_HEAD);
         const style = window.getComputedStyle(bodyElement)
         expect(style.backgroundColor).toBe('red');
+    })
+})
+
+describe("move snake", ()=> {
+    it("should move one pace left", ()=>{
+        const movedSnake = moveSnake({direction: 'horizontal', arrow: keyboardArrows.ARROW_LEFT}, mockSnake)
+        render(<Snake snake={movedSnake} />)
+        const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
+        const style = window.getComputedStyle(snakeHead)
+        expect(style.left).toBe('40px')
+    })
+
+    it("should move one pace right", ()=>{
+        const movedSnake = moveSnake({direction: 'horizontal', arrow: keyboardArrows.ARROW_RIGHT}, mockSnake)
+        render(<Snake snake={movedSnake} />)
+        const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
+        const style = window.getComputedStyle(snakeHead)
+        expect(style.left).toBe('20px')
+    })
+
+    it("should move one pace up", ()=>{
+        const movedSnake = moveSnake({direction: 'vertical', arrow: keyboardArrows.ARROW_UP}, mockSnake)
+        render(<Snake snake={movedSnake} />)
+        const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
+        const style = window.getComputedStyle(snakeHead)
+        expect(style.top).toBe('0px')
+    })
+
+    it("should move one pace down", ()=>{
+        const movedSnake = moveSnake({direction: 'vertical', arrow: keyboardArrows.ARROW_DOWN}, mockSnake)
+        render(<Snake snake={movedSnake} />)
+        const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
+        const style = window.getComputedStyle(snakeHead)
+        expect(style.top).toBe('20px')
     })
 })
