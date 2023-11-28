@@ -3,8 +3,9 @@ import { TGameStatus } from "../models/TGameStatus"
 import { setGameStatus } from "../store/gameControllerSlice"
 
 const useMoveControls = () => {
+    const dispatch = useAppDispatch()
+    
     return (gameStatus:TGameStatus)=>{
-        const dispatch = useAppDispatch()
         dispatch(setGameStatus(gameStatus))
     }
 }
