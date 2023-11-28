@@ -6,9 +6,9 @@ import { size } from "../enums/Size";
 interface IGamePartsState {
     snake: TSnake
 }
-
-const initialLeft = size.SNAKE_BODY * 3
-const initialTop = size.SNAKE_BODY * 3
+const headInitialLeftFactor = 3
+const initialLeft = size.SNAKE_BODY * headInitialLeftFactor
+const initialTop = size.SNAKE_BODY
 
 const initialState: IGamePartsState = {
     snake: [
@@ -19,13 +19,13 @@ const initialState: IGamePartsState = {
             width: size.SNAKE_BODY,
         },
         {
-            left: 2 * size.SNAKE_BODY,
+            left: (headInitialLeftFactor - 1) * size.SNAKE_BODY,
             top: initialTop,
             height: size.SNAKE_BODY,
             width: size.SNAKE_BODY,
         },
         {
-            left: 1 * size.SNAKE_BODY,
+            left: (headInitialLeftFactor - 2) * size.SNAKE_BODY,
             top: initialTop,
             height: size.SNAKE_BODY,
             width: size.SNAKE_BODY,
