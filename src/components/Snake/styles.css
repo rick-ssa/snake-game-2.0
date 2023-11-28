@@ -1,0 +1,12 @@
+.snake_piece {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.snake_body {
+    background-color: blue;
+}
+
+.snake_head {
+    background-color: red;
+}

@@ -1,39 +1,50 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Snake from './components/Snake/Snake';
-import { size } from './enums/Size';
+import { useAppDispatch, useAppSelector } from './hooks/redux';
+import getPath from './functions/getPath';
+import { setPath } from './store/gameControllerSlice';
+import { setSnake } from './store/gamePartsSlice';
 import moveSnake from './functions/moveSnake';
-import { keyboardArrows } from './enums/KeyboardArrows';
+import { TPath } from './models/TPath';
+
 
 function App() {
-  const mockSnake = [
-    {
-      width: size.SNAKE_BODY,
-      height: size.SNAKE_BODY,
-      left: 80,
-      top: 50,
-    },
-    {
-      width: size.SNAKE_BODY,
-      height: size.SNAKE_BODY,
-      left: 70,
-      top: 50,
-    },
-    {
-      width: size.SNAKE_BODY,
-      height: size.SNAKE_BODY,
-      left: 60,
-      top: 50,
-    },
-    {
-      width: size.SNAKE_BODY,
-      height: size.SNAKE_BODY,
-      left: 50  ,
-      top: 50,
+  const dispatch = useAppDispatch()
+  const snake = useAppSelector(state => state.gameParts.snake)
+  const status = useAppSelector(state => state.gameController.gameStatus)
+  const path = useAppSelector(state => state.gameController.path)
+  const velocity = useAppSelector(state => state.gameController.velocity)
+  const runRef = useRef<NodeJS.Timeout>()
+
+  const run = (path:TPath) => {
+    if(status === 'play') {
+      const newSnake = moveSnake(path,snake)
+      dispatch(setSnake(newSnake))
     }
-  ]
-  let snake = moveSnake({arrow: keyboardArrows.ARROW_DOWN, direction: 'vertical'}, mockSnake)
-  snake = moveSnake({arrow: keyboardArrows.ARROW_RIGHT, direction: 'horizontal'}, snake)
-  snake = moveSnake({arrow: keyboardArrows.ARROW_DOWN, direction: 'vertical'}, snake)
+    runRef.current = setTimeout(()=>run(path),velocity)
+  }
+
+  useEffect(()=>{  
+    const func = (e:KeyboardEvent) => {
+      e.preventDefault()
+      const newPath = getPath(e.key)
+      if(newPath && newPath.direction !== path.direction) {
+        clearTimeout(runRef.current)
+        dispatch(setPath(newPath))
+        run(newPath)
+      }
+    }   
+
+    runRef.current = setTimeout(()=>run(path),velocity)
+
+    document.addEventListener('keydown',func)
+
+    return ()=>{
+      document.removeEventListener('keydown', func)
+      clearTimeout(runRef.current)
+    }
+  },[snake])
+
   return (
     <div className="App">
       <Snake snake={snake}/>

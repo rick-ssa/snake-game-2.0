@@ -1,23 +1,23 @@
 import { roles } from "../../enums/Roles"
 import { TSnake } from "../../models/TSnake"
-import SnakeBody from "./SnakeBody"
-import SnakeHead from "./SnakeHead"
+import SnakePiece from "./SnakePiece"
 
 const Snake = ({snake}:{snake:TSnake}) => {
     return (
         <>
             {snake.map((body, index) => {
                 if(index === 0) {
-                    return <SnakeHead 
+                    return <SnakePiece 
                         key = {index}
                         role={roles.SNAKE_HEAD} 
-                        $snakePiece={body}
+                        snakePiece={body}
+                        isHead
                     />
                 } 
-                return <SnakeBody 
+                return <SnakePiece 
                     key = {index}
                     role={roles.SNAKE_BODY} 
-                    $snakePiece={body}
+                    snakePiece={body}
                 />
             })}
         </>

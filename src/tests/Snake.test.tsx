@@ -53,18 +53,16 @@ describe('render snake', () => {
         expect(bodyElements).toHaveLength(2);
     });
 
-    test('should have body backcolor blue', ()=>{
+    test('should body have class snake_body', ()=>{
         render(<Snake  snake={mockSnakeWithOneBodyPiece}/>);
         const bodyElement = screen.getByRole(roles.SNAKE_BODY);
-        const style = window.getComputedStyle(bodyElement)
-        expect(style.backgroundColor).toBe('blue');
+        expect(bodyElement).toHaveClass('snake_body');
     })
 
-    test('should have head backcolor red', ()=>{
+    test('should head have class snake_head', ()=>{
         render(<Snake  snake={mockSnake}/>);
-        const bodyElement = screen.getByRole(roles.SNAKE_HEAD);
-        const style = window.getComputedStyle(bodyElement)
-        expect(style.backgroundColor).toBe('red');
+        const headElement = screen.getByRole(roles.SNAKE_HEAD);
+        expect(headElement).toHaveClass('snake_head');
     })
 })
 
@@ -74,7 +72,7 @@ describe("move snake", ()=> {
         render(<Snake snake={movedSnake} />)
         const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
         const style = window.getComputedStyle(snakeHead)
-        expect(style.left).toBe('40px')
+        expect(style.left).toBe('20px')
     })
 
     it("should move one pace right", ()=>{
@@ -82,7 +80,7 @@ describe("move snake", ()=> {
         render(<Snake snake={movedSnake} />)
         const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
         const style = window.getComputedStyle(snakeHead)
-        expect(style.left).toBe('20px')
+        expect(style.left).toBe('40px')
     })
 
     it("should move one pace up", ()=>{

@@ -10,4 +10,4 @@ type THorizontalDirection = {
     arrow: keyboardArrows.ARROW_RIGHT | keyboardArrows.ARROW_LEFT
 }
 
-export type TDirections = TVerticalDirection | THorizontalDirection
+export type TPath = TVerticalDirection | THorizontalDirection
