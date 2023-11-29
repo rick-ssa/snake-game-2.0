@@ -7,6 +7,7 @@ import { setSnake } from './store/gamePartsSlice';
 import moveSnake from './functions/moveSnake';
 import { TPath } from './models/TPath';
 import Board from './components/Board/Board';
+import Food from './components/Food/Food';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
   return (
     <div className="App">
       <Board>
+        <Food left={340} top={560} visible/>
         <Snake snake={snake}/>
       </Board>
     </div>

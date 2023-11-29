@@ -1,0 +1,5 @@
+.game_food {
+    position: absolute;
+    background-color: blueviolet;
+    border-radius: 8px;
+}
