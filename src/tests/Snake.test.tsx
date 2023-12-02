@@ -96,6 +96,6 @@ describe("move snake", ()=> {
         render(<Snake snake={movedSnake} />)
         const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
         const style = window.getComputedStyle(snakeHead)
-        expect(style.top).toBe('19px')
+        expect(style.top).toBe('20px')
     })
 })
