@@ -3,20 +3,27 @@ on:
     push:
         branches:
             -   desenvolvimento
+
     pull_request: 
         branches:
             -   desenvolvimento
+
 jobs:
     test-dev:
         runs-on: ubuntu-latest
+
         steps:
             -   name: checkout code
                 uses: actions/checkout@v4
+
             -   name: setup node v20
                 uses: actions/setup-node@v3
                 with:
                     node-version: '20'
+                    
             -   name: install dependencies and run test
                 run: |
                     npm install
                     npm test
+                    git checkout homologação
+                    git push origin homologação
