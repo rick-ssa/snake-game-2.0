@@ -31,5 +31,5 @@ jobs:
                     pr_branch: 'homologação'
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                    GITBOT_EMAIL: rick_ssa@hotmail.com
+                    GITBOT_EMAIL: 34078950+rick-ssa@users.noreply.github.com
                     DRY_RUN: false
