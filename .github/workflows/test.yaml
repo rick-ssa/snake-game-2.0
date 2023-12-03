@@ -25,5 +25,11 @@ jobs:
                 run: |
                     npm install
                     npm test
-                    git checkout -b homologação
-                    git push origin homologação
+            -   name: Create PR to branch
+                uses: gorillio/github-action-cherry-pick@master
+                with:
+                    pr_branch: 'homologação'
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    GITBOT_EMAIL: <BOT_EMAIL>
+                    DRY_RUN: false
