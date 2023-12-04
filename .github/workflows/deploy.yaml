@@ -22,7 +22,13 @@ jobs:
                     node-version: '20'
                     
             -   name: install dependencies and run test
-                run: |
-                    npm install
-                    npm test
-                    npm run build
+                run: npm install
+            
+            -   name: testing
+                run:  npm test
+
+            -   name: install gh-pages
+                run:  npm install -D gh-pages
+
+            -   name: run deploy
+                run:  npm run deploy
