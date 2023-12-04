@@ -9,7 +9,7 @@ on:
             -   desenvolvimento
 
 jobs:
-    test-dev:
+    deploy-dev:
         runs-on: ubuntu-latest
 
         steps:
@@ -21,14 +21,17 @@ jobs:
                 with:
                     node-version: '20'
                     
-            -   name: install dependencies and run test
+            -   name: install node dependencies
                 run: npm install
             
             -   name: testing
                 run:  npm test
 
-            -   name: install gh-pages
-                run:  npm install -D gh-pages
-
-            -   name: run deploy
-                run:  npm run deploy
+            -   name: push to homologação
+                uses: Automattic/action-commit-to-branch@master
+                with:
+                  dest_branch: 'homologação'
+                  source_branch: 'desenvolvimento'
+                  commit_message: 'Automated tests for main.'
+                env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
