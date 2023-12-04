@@ -31,4 +31,4 @@ jobs:
                 run: npm install -D gh-pages
 
             -   name: run deploy
-                run: nmp run deploy
+                run: npm run deploy
