@@ -26,12 +26,3 @@ jobs:
             
             -   name: testing
                 run:  npm test
-
-            -   name: push to homologação
-                uses: Automattic/action-commit-to-branch@master
-                with:
-                  dest_branch: 'homologação'
-                  source_branch: 'desenvolvimento'
-                  commit_message: 'Automated tests for main.'
-                env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
