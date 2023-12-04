@@ -1,4 +1,4 @@
-name: test-dev
+name: deploy
 on: 
     push:
         branches:
@@ -25,3 +25,4 @@ jobs:
                 run: |
                     npm install
                     npm test
+                    npm run build
