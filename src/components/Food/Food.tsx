@@ -1,14 +1,9 @@
 import React from "react";
 import "./styles.css"
 import { size } from "../../enums/Size";
+import IFood from "../../models/IFood";
 
-interface IFoodProps {
-    left: number
-    top: number
-    visible?: boolean
-}
-
-const Food = ({left, top, visible}:IFoodProps) => {
+const Food = ({left, top, visible}:IFood) => {
     if(!visible) {
         return null
     }
