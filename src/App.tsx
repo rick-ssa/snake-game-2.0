@@ -16,6 +16,7 @@ function App() {
   const status = useAppSelector(state => state.gameController.gameStatus)
   const path = useAppSelector(state => state.gameController.path)
   const velocity = useAppSelector(state => state.gameController.velocity)
+  const food = useAppSelector(state => state.gameParts.food)
   const runRef = useRef<NodeJS.Timeout>()
 
   const run = (path:TPath) => {
@@ -50,7 +51,7 @@ function App() {
   return (
     <div className="App">
       <Board>
-        <Food left={340} top={560} visible/>
+        <Food left={food.left} top={food.top} visible={food.visible}/>
         <Snake snake={snake}/>
       </Board>
     </div>

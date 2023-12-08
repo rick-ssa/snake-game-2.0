@@ -1,4 +1,4 @@
-name: test-dev
+name: deploy
 on: 
     push:
         branches:
@@ -9,7 +9,7 @@ on:
             -   desenvolvimento
 
 jobs:
-    test-dev:
+    deploy-dev:
         runs-on: ubuntu-latest
 
         steps:
@@ -21,7 +21,8 @@ jobs:
                 with:
                     node-version: '20'
                     
-            -   name: install dependencies and run test
-                run: |
-                    npm install
-                    npm test
+            -   name: install node dependencies
+                run: npm install
+            
+            -   name: testing
+                run:  npm test
