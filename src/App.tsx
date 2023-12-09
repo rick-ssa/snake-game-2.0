@@ -3,11 +3,12 @@ import Snake from './components/Snake/Snake';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import getPath from './functions/getPath';
 import { setPath } from './store/gameControllerSlice';
-import { setSnake } from './store/gamePartsSlice';
+import { setFood, setSnake } from './store/gamePartsSlice';
 import moveSnake from './functions/moveSnake';
 import { TPath } from './models/TPath';
 import Board from './components/Board/Board';
 import Food from './components/Food/Food';
+import useMoveFood from './hooks/useMoveFood';
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
   const velocity = useAppSelector(state => state.gameController.velocity)
   const food = useAppSelector(state => state.gameParts.food)
   const runRef = useRef<NodeJS.Timeout>()
+  const foodRunRef = useRef<NodeJS.Timeout>()
+  const moveFood = useMoveFood()
 
   const run = (path:TPath) => {
     if(status === 'play') {
@@ -47,6 +50,22 @@ function App() {
       clearTimeout(runRef.current)
     }
   },[snake])
+
+  useEffect(()=>{
+    clearTimeout(foodRunRef.current)
+
+    if(status === 'play') {
+      const mileseconds = food.visible ? 7000 : 400
+      foodRunRef.current = setTimeout(()=>{
+        const newFood = moveFood(food)
+        dispatch(setFood(newFood))
+      }, mileseconds)
+    }
+
+    return ()=>{
+      clearTimeout(foodRunRef.current)
+    }
+  },[food])
 
   return (
     <div className="App">
