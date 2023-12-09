@@ -3,11 +3,12 @@ import Snake from './components/Snake/Snake';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import getPath from './functions/getPath';
 import { setPath } from './store/gameControllerSlice';
-import { setSnake } from './store/gamePartsSlice';
-import moveSnake from './functions/moveSnake';
+import { setFood, setSnake } from './store/gamePartsSlice';
 import { TPath } from './models/TPath';
 import Board from './components/Board/Board';
 import Food from './components/Food/Food';
+import useMoveFood from './hooks/useMoveFood';
+import useMoveSnake from './hooks/moveSnake';
 
 
 function App() {
@@ -18,10 +19,13 @@ function App() {
   const velocity = useAppSelector(state => state.gameController.velocity)
   const food = useAppSelector(state => state.gameParts.food)
   const runRef = useRef<NodeJS.Timeout>()
+  const foodRunRef = useRef<NodeJS.Timeout>()
+  const moveFood = useMoveFood()
+  const moveSnake = useMoveSnake()
 
   const run = (path:TPath) => {
     if(status === 'play') {
-      const newSnake = moveSnake(path,snake)
+      const newSnake = moveSnake({path,snake,onColide: console.log})
       dispatch(setSnake(newSnake))
     }
     runRef.current = setTimeout(()=>run(path),velocity)
@@ -47,6 +51,22 @@ function App() {
       clearTimeout(runRef.current)
     }
   },[snake])
+
+  useEffect(()=>{
+    clearTimeout(foodRunRef.current)
+
+    if(status === 'play') {
+      const mileseconds = food.visible ? 7000 : 400
+      foodRunRef.current = setTimeout(()=>{
+        const newFood = moveFood(food)
+        dispatch(setFood(newFood))
+      }, mileseconds)
+    }
+
+    return ()=>{
+      clearTimeout(foodRunRef.current)
+    }
+  },[food])
 
   return (
     <div className="App">
