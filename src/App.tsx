@@ -4,11 +4,11 @@ import { useAppDispatch, useAppSelector } from './hooks/redux';
 import getPath from './functions/getPath';
 import { setPath } from './store/gameControllerSlice';
 import { setFood, setSnake } from './store/gamePartsSlice';
-import moveSnake from './functions/moveSnake';
 import { TPath } from './models/TPath';
 import Board from './components/Board/Board';
 import Food from './components/Food/Food';
 import useMoveFood from './hooks/useMoveFood';
+import useMoveSnake from './hooks/moveSnake';
 
 
 function App() {
@@ -21,10 +21,11 @@ function App() {
   const runRef = useRef<NodeJS.Timeout>()
   const foodRunRef = useRef<NodeJS.Timeout>()
   const moveFood = useMoveFood()
+  const moveSnake = useMoveSnake()
 
   const run = (path:TPath) => {
     if(status === 'play') {
-      const newSnake = moveSnake(path,snake)
+      const newSnake = moveSnake({path,snake,onColide: console.log})
       dispatch(setSnake(newSnake))
     }
     runRef.current = setTimeout(()=>run(path),velocity)

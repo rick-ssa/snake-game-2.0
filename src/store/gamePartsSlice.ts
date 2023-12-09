@@ -3,10 +3,13 @@ import { RootState } from "./store";
 import { TSnake } from "../models/TSnake";
 import { size } from "../enums/Size";
 import IFood from "../models/IFood";
+import IColider from "../models/IColiders";
+import { colidersName } from "../enums/descriptions";
 
 interface IGamePartsState {
     snake: TSnake
     food: IFood
+    coliders: IColider[]
 }
 
 const headInitialLeftFactor = 3
@@ -34,11 +37,18 @@ const initialState: IGamePartsState = {
             width: size.SNAKE_BODY,
         }
     ],
+
     food: {
         visible: true,
         left: 5 * size.SNAKE_BODY,
         top: 5 * size.SNAKE_BODY,
-    }
+    },
+
+    coliders: [{
+        left: 5 * size.SNAKE_BODY,
+        top: 5 * size.SNAKE_BODY,
+        name: colidersName.COLIDER_FOOD,
+    }],
 }
 
 export const gamePartsSlice = createSlice({
@@ -50,14 +60,21 @@ export const gamePartsSlice = createSlice({
         },
         setFood: (state, action: PayloadAction<IFood>) => {
             state.food = action.payload
-        }
+        },
+        addColider: (state, action: PayloadAction<IColider>) => {
+            const newColiders = state.coliders.filter(colider => colider.name !== action.payload.name)
+            newColiders.push(action.payload)
+            state.coliders = newColiders
+        },
     }
 })
 
-export const {setSnake, setFood} = gamePartsSlice.actions
+export const {setSnake, setFood, addColider} = gamePartsSlice.actions
 
 export const selectSnake = (state: RootState) => state.gameParts.snake
 
 export const selectFood = (state: RootState) => state.gameParts.food
+
+export const selectColiders = (state: RootState) => state.gameParts.coliders
 
 export default gamePartsSlice.reducer
