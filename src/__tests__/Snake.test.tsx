@@ -4,7 +4,7 @@ import { TSnake } from '../models/TSnake';
 import { size } from '../enums/Size';
 import Snake from '../components/Snake/Snake';
 import { roles } from '../enums/Roles';
-import moveSnake from '../functions/moveSnake';
+import moveSnake from '../hooks/moveSnake';
 import { keyboardArrows } from '../enums/KeyboardArrows';
 
 const mockSnake:TSnake = [
