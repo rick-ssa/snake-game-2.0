@@ -15,7 +15,7 @@ const initialState: IGameControllerState = {
         arrow: keyboardArrows.ARROW_RIGHT,
         direction: 'horizontal'
     },
-    gameStatus: 'stop',
+    gameStatus: 'play',
     velocity: 120,
 }
 
