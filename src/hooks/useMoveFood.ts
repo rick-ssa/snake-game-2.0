@@ -1,9 +1,12 @@
 import { size } from "../enums/Size";
-import { useAppSelector } from "./redux";
+import { useAppDispatch, useAppSelector } from "./redux";
 import IFood from "../models/IFood";
+import { addColider } from "../store/gamePartsSlice";
+import { colidersName } from "../enums/descriptions";
 
 const useMoveFood = () => {
     const snake = useAppSelector(state => state.gameParts.snake)
+    const dispatch = useAppDispatch()
     const snakeHead = snake[0]
 
     return (food:IFood):IFood => {
@@ -14,7 +17,7 @@ const useMoveFood = () => {
 
         const left = calculePosition(snakeHead.left, 1000)
         const top = calculePosition(snakeHead.top, 1000)
-        console.log(left, top)
+        dispatch(addColider({left, top, name: colidersName.COLIDER_FOOD}))
         return { left, top, visible: true}
     }
 }
