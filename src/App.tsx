@@ -3,12 +3,13 @@ import Snake from './components/Snake/Snake';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import getPath from './functions/getPath';
 import { setPath } from './store/gameControllerSlice';
-import { setFood, setSnake } from './store/gamePartsSlice';
+import { growSnake, setFood, setSnake } from './store/gamePartsSlice';
 import { TPath } from './models/TPath';
 import Board from './components/Board/Board';
 import Food from './components/Food/Food';
 import useMoveFood from './hooks/useMoveFood';
 import useMoveSnake from './hooks/moveSnake';
+import useCollisionTrigger from './hooks/CollisionPool/ColisionTrigger';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const path = useAppSelector(state => state.gameController.path)
   const velocity = useAppSelector(state => state.gameController.velocity)
   const food = useAppSelector(state => state.gameParts.food)
+  const collisionTrigger = useCollisionTrigger()
   const runRef = useRef<NodeJS.Timeout>()
   const foodRunRef = useRef<NodeJS.Timeout>()
   const moveFood = useMoveFood()
@@ -25,13 +27,14 @@ function App() {
 
   const run = (path:TPath) => {
     if(status === 'play') {
-      const newSnake = moveSnake({path,snake,onColide: console.log})
+      const newSnake = moveSnake({path,snake,onColide: collisionTrigger})
       dispatch(setSnake(newSnake))
     }
     runRef.current = setTimeout(()=>run(path),velocity)
   }
 
   useEffect(()=>{  
+    clearTimeout(runRef.current)
     const func = (e:KeyboardEvent) => {
       e.preventDefault()
       const newPath = getPath(e.key)
