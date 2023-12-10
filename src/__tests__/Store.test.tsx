@@ -1,11 +1,5 @@
-import React from 'react';
-import { render, renderHook, screen } from '@testing-library/react';
-import { TSnake } from '../models/TSnake';
-import { size } from '../enums/Size';
-import Snake from '../components/Snake/Snake';
-import { roles } from '../enums/Roles';
+import {  renderHook } from '@testing-library/react';
 import { keyboardArrows } from '../enums/KeyboardArrows';
-import useMoveSnake from '../hooks/moveSnake';
 import { Provider } from 'react-redux';
 import store from '../store/store';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
