@@ -56,7 +56,14 @@ export const gamePartsSlice = createSlice({
     initialState,
     reducers: {
         setSnake: (state, action: PayloadAction<TSnake>) => {
-            state.snake = action.payload
+            if(action.payload.length === state.snake.length) {
+                state.snake = action.payload
+            } else {
+                state.snake = [...action.payload, {...state.snake[state.snake.length - 1]}]
+            }
+        },
+        growSnake: (state) => {
+            state.snake = [...state.snake, {...state.snake[state.snake.length - 1]}]
         },
         setFood: (state, action: PayloadAction<IFood>) => {
             state.food = action.payload
@@ -69,7 +76,7 @@ export const gamePartsSlice = createSlice({
     }
 })
 
-export const {setSnake, setFood, addColider} = gamePartsSlice.actions
+export const {setSnake, growSnake, setFood, addColider} = gamePartsSlice.actions
 
 export const selectSnake = (state: RootState) => state.gameParts.snake
 
