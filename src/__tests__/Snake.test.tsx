@@ -4,9 +4,18 @@ import { TSnake } from '../models/TSnake';
 import { size } from '../enums/Size';
 import Snake from '../components/Snake/Snake';
 import { roles } from '../enums/Roles';
-import moveSnake from '../hooks/moveSnake';
 import { keyboardArrows } from '../enums/KeyboardArrows';
 import useMoveSnake from '../hooks/moveSnake';
+import { Provider } from 'react-redux';
+import store from '../store/store';
+
+const renderWithProvider = (component:React.ReactNode) => render(
+    <Provider store={store}>
+        {component}
+    </Provider>
+)
+
+const wrapper = ({children}:{children:any}) => <Provider store={store}>{children}</Provider>
 
 const mockSnake:TSnake = [
     {
@@ -67,40 +76,40 @@ describe('render snake', () => {
     })
 })
 
-/* describe("move snake", ()=> {
+describe("move snake", ()=> {
     it("should move one pace left", ()=>{
-        const {result} = renderHook(() => useMoveSnake())
+        const {result} = renderHook(() => useMoveSnake(),{wrapper})
         const movedSnake = result.current({path: {direction: 'horizontal', arrow: keyboardArrows.ARROW_LEFT}, snake: mockSnake})
-        render(<Snake snake={movedSnake} />)
+        renderWithProvider(<Snake snake={movedSnake} />)
         const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
         const style = window.getComputedStyle(snakeHead)
         expect(style.left).toBe('20px')
     })
 
     it("should move one pace right", ()=>{
-        const {result} = renderHook(() => useMoveSnake())
+        const {result} = renderHook(() => useMoveSnake(),{wrapper})
         const movedSnake = result.current({path: {direction: 'horizontal', arrow: keyboardArrows.ARROW_RIGHT}, snake: mockSnake})
-        render(<Snake snake={movedSnake} />)
+        renderWithProvider(<Snake snake={movedSnake} />)
         const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
         const style = window.getComputedStyle(snakeHead)
         expect(style.left).toBe('40px')
     })
 
     it("should move one pace up", ()=>{
-        const {result} = renderHook(() => useMoveSnake())
+        const {result} = renderHook(() => useMoveSnake(),{wrapper})
         const movedSnake = result.current({path: {direction: 'vertical', arrow: keyboardArrows.ARROW_UP}, snake: mockSnake})
-        render(<Snake snake={movedSnake} />)
+        renderWithProvider(<Snake snake={movedSnake} />)
         const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
         const style = window.getComputedStyle(snakeHead)
         expect(style.top).toBe('0px')
     })
 
     it("should move one pace down", ()=>{
-        const {result} = renderHook(() => useMoveSnake())
+        const {result} = renderHook(() => useMoveSnake(),{wrapper})
         const movedSnake = result.current({path: {direction: 'vertical', arrow: keyboardArrows.ARROW_DOWN}, snake: mockSnake})
-        render(<Snake snake={movedSnake} />)
+        renderWithProvider(<Snake snake={movedSnake} />)
         const snakeHead = screen.getByRole(roles.SNAKE_HEAD)
         const style = window.getComputedStyle(snakeHead)
         expect(style.top).toBe('20px')
     })
-}) */
+}) 
