@@ -1,4 +1,4 @@
-import { growSnake } from "../../store/gamePartsSlice"
+import { growSnake, setFood } from "../../store/gamePartsSlice"
 import { useAppDispatch, useAppSelector } from "../redux"
 
 export const useFoodCollision = () => {
@@ -8,6 +8,7 @@ export const useFoodCollision = () => {
     return () => {
         if(food.visible) {
             dispatch(growSnake())
+            dispatch(setFood({...food, visible: false}))
         }
     }
 }

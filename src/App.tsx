@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Snake from './components/Snake/Snake';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import getPath from './functions/getPath';
 import { setPath } from './store/gameControllerSlice';
-import { growSnake, setFood, setSnake } from './store/gamePartsSlice';
+import { setFood, setSnake } from './store/gamePartsSlice';
 import { TPath } from './models/TPath';
 import Board from './components/Board/Board';
 import Food from './components/Food/Food';
@@ -35,6 +35,7 @@ function App() {
 
   useEffect(()=>{  
     clearTimeout(runRef.current)
+
     const func = (e:KeyboardEvent) => {
       e.preventDefault()
       const newPath = getPath(e.key)
