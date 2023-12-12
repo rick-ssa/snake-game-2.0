@@ -81,30 +81,30 @@ describe("Game Controlls", ()=>{
 })
 
 describe("Game parts", ()=>{
-    it("should have one object in coliders", () => {
+    it("should have three initial object in coliders", () => {
         const {result:coliders} = renderHook(() => useAppSelector(state => state.gameParts.coliders), {wrapper})
-        expect(coliders.current).toHaveLength(1)
+        expect(coliders.current).toHaveLength(3)
     })
 
-    it("should have two object in coliders", () => {
+    it("should have four object in coliders", () => {
         const {result:dispatch} = renderHook(() => useAppDispatch(),{wrapper})
         dispatch.current(addColider({left:10, top: 10, name: 'test'}))
         const {result:coliders} = renderHook(() => useAppSelector(state => state.gameParts.coliders), {wrapper})
-        expect(coliders.current).toHaveLength(2)
+        expect(coliders.current).toHaveLength(4)
     })
 
-    it("should have three object in coliders", () => {
+    it("should have five object in coliders", () => {
         const {result:dispatch} = renderHook(() => useAppDispatch(),{wrapper})
         dispatch.current(addColider({left:12, top: 10, name: 'test2'}))
         const {result:coliders} = renderHook(() => useAppSelector(state => state.gameParts.coliders), {wrapper})
-        expect(coliders.current).toHaveLength(3)
+        expect(coliders.current).toHaveLength(5)
     })
 
-    it("should mantain three object in coliders", () => {
+    it("should mantain five object in coliders", () => {
         const {result:dispatch} = renderHook(() => useAppDispatch(),{wrapper})
         dispatch.current(addColider({left:60, top: 85, name: 'test'}))
         const {result:coliders} = renderHook(() => useAppSelector(state => state.gameParts.coliders), {wrapper})
-        expect(coliders.current).toHaveLength(3)
+        expect(coliders.current).toHaveLength(5)
     })
 
     it("should snake initiate with three pieces", () => {
