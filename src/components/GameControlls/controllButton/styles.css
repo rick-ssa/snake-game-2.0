@@ -1,0 +1,25 @@
+.controll_button {
+    color: blue;
+    outline: none;
+    background-color: white;
+    border: 1px solid gray;
+    margin:4px 2px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+}
+
+.controll_button:disabled {
+    color: gray;
+}
+
+.controll_button:first-child {
+    margin-left: 4px;
+}
+
+.controll_button:last-child {
+    margin-right: 4px;
+}
