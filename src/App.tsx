@@ -54,7 +54,7 @@ function App() {
       document.removeEventListener('keydown', func)
       clearTimeout(runRef.current)
     }
-  },[snake])
+  },[snake, status])
 
   useEffect(()=>{
     clearTimeout(foodRunRef.current)
@@ -70,7 +70,7 @@ function App() {
     return ()=>{
       clearTimeout(foodRunRef.current)
     }
-  },[food])
+  },[food, status])
 
   return (
     <div className="App">

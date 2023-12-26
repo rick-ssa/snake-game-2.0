@@ -44,11 +44,24 @@ const initialState: IGamePartsState = {
         top: 5 * size.SNAKE_BODY,
     },
 
-    coliders: [{
-        left: 5 * size.SNAKE_BODY,
-        top: 5 * size.SNAKE_BODY,
-        name: colidersName.COLIDER_FOOD,
-    }],
+    coliders: [
+        {
+            left: 5 * size.SNAKE_BODY,
+            top: 5 * size.SNAKE_BODY,
+            name: colidersName.COLIDER_FOOD,
+        },
+        {
+            left: (headInitialLeftFactor - 1) * size.SNAKE_BODY,
+            top: initialTop,
+            name: colidersName.COLIDER_SNAKE_BODY + "1"
+        },
+        {
+            left: (headInitialLeftFactor - 2) * size.SNAKE_BODY,
+            top: initialTop,
+            name: colidersName.COLIDER_SNAKE_BODY + "2"
+        }
+
+],
 }
 
 export const gamePartsSlice = createSlice({

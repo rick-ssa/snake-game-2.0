@@ -1,11 +1,13 @@
 import { keyboardArrows } from "../enums/KeyboardArrows";
 import { size } from "../enums/Size";
-import { useAppSelector } from "./redux";
+import { useAppDispatch, useAppSelector } from "./redux";
 import { ISnakePiece } from "../models/ISnakePiece";
 import { TPath } from "../models/TPath";
 import { TSnake } from "../models/TSnake";
 import IColider from "../models/IColiders";
 import detectColision from "../functions/detectColision";
+import { addColider } from "../store/gamePartsSlice";
+import { colidersName } from "../enums/descriptions";
 
 interface IMoveSnakeArgs {
     path: TPath
@@ -15,6 +17,7 @@ interface IMoveSnakeArgs {
 
 const useMoveSnake = () => {
     const coliders = useAppSelector(state => state.gameParts.coliders)
+    const dispatch = useAppDispatch()
 
     return ({path, snake, onColide}:IMoveSnakeArgs):TSnake => {
 
@@ -51,6 +54,12 @@ const useMoveSnake = () => {
 
         newSnake.pop()
         newSnake.unshift(newSnakePiece)
+
+        newSnake.forEach((piece,index)=>{
+            if(index !== 0) {
+                dispatch(addColider({left: piece.left, top: piece.top, name: colidersName.COLIDER_SNAKE_BODY + index}))
+            }
+        })
         
         return newSnake
     }

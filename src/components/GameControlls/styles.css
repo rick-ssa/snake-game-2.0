@@ -1,0 +1,14 @@
+.game_controlls {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+.game_controlls_container {
+    position: absolute;
+    left: 50%;
+}
