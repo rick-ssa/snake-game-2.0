@@ -4,12 +4,14 @@ import { TSnake } from "../models/TSnake";
 import { size } from "../enums/Size";
 import IFood from "../models/IFood";
 import IColider from "../models/IColiders";
+import IBoardLength from "../models/IBoardLength";
 import { colidersName } from "../enums/descriptions";
 
 interface IGamePartsState {
     snake: TSnake
     food: IFood
     coliders: IColider[]
+    board: IBoardLength
 }
 
 const headInitialLeftFactor = 3
@@ -60,8 +62,12 @@ const initialState: IGamePartsState = {
             top: initialTop,
             name: colidersName.COLIDER_SNAKE_BODY + "2"
         }
+    ],
 
-],
+    board: {
+        width: 0,
+        height: 0,
+    }
 }
 
 export const gamePartsSlice = createSlice({
@@ -86,15 +92,20 @@ export const gamePartsSlice = createSlice({
             newColiders.push(action.payload)
             state.coliders = newColiders
         },
+        setBoardLength: (state, action: PayloadAction<IBoardLength>) => {
+            state.board = action.payload
+        }
     }
 })
 
-export const {setSnake, growSnake, setFood, addColider} = gamePartsSlice.actions
+export const {setSnake, growSnake, setFood, addColider, setBoardLength} = gamePartsSlice.actions
 
 export const selectSnake = (state: RootState) => state.gameParts.snake
 
 export const selectFood = (state: RootState) => state.gameParts.food
 
 export const selectColiders = (state: RootState) => state.gameParts.coliders
+
+export const selectBoardLength = (state: RootState) => state.gameParts.board
 
 export default gamePartsSlice.reducer
