@@ -1,3 +1,4 @@
+import { setGameStatus } from "../../store/gameControllerSlice"
 import { growSnake, setFood } from "../../store/gamePartsSlice"
 import { useAppDispatch, useAppSelector } from "../redux"
 
@@ -10,5 +11,12 @@ export const useFoodCollision = () => {
             dispatch(growSnake())
             dispatch(setFood({...food, visible: false}))
         }
+    }
+}
+
+export const useSelfCollision = () => {
+    const dispatch = useAppDispatch()
+    return ()=> {
+        dispatch(setGameStatus('over'))
     }
 }
