@@ -101,6 +101,11 @@ export const gamePartsSlice = createSlice({
             newColiders.push(action.payload)
             state.coliders = newColiders
         },
+        resetSnakeColider: (state) => {
+            const regex = new RegExp(colidersName.COLIDER_SNAKE_BODY + '\d*')
+            const newColiders = state.coliders.filter(colider => !regex.test(colider.name))
+            state.coliders = newColiders
+        },
         setBoardLength: (state, action: PayloadAction<IBoardLength>) => {
             state.board = action.payload
         },
@@ -117,7 +122,8 @@ export const {
     setFood, 
     addColider, 
     setBoardLength, 
-    setFace
+    setFace,
+    resetSnakeColider,
 } = gamePartsSlice.actions
 
 export const selectSnake = (state: RootState) => state.gameParts.snake
