@@ -14,31 +14,37 @@ interface IGamePartsState {
     board: IBoardLength
 }
 
+interface ISetState {
+    snake: TSnake,
+    restart?: boolean,
+}
+
 const headInitialLeftFactor = 3
 const initialLeft = size.SNAKE_BODY * headInitialLeftFactor
 const initialTop = size.SNAKE_BODY
+export const initialSnakePosition = [
+    {
+        left: initialLeft,
+        top: initialTop,
+        height: size.SNAKE_BODY,
+        width: size.SNAKE_BODY,
+    },
+    {
+        left: (headInitialLeftFactor - 1) * size.SNAKE_BODY,
+        top: initialTop,
+        height: size.SNAKE_BODY,
+        width: size.SNAKE_BODY,
+    },
+    {
+        left: (headInitialLeftFactor - 2) * size.SNAKE_BODY,
+        top: initialTop,
+        height: size.SNAKE_BODY,
+        width: size.SNAKE_BODY,
+    }
+]
 
 const initialState: IGamePartsState = {
-    snake: [
-        {
-            left: initialLeft,
-            top: initialTop,
-            height: size.SNAKE_BODY,
-            width: size.SNAKE_BODY,
-        },
-        {
-            left: (headInitialLeftFactor - 1) * size.SNAKE_BODY,
-            top: initialTop,
-            height: size.SNAKE_BODY,
-            width: size.SNAKE_BODY,
-        },
-        {
-            left: (headInitialLeftFactor - 2) * size.SNAKE_BODY,
-            top: initialTop,
-            height: size.SNAKE_BODY,
-            width: size.SNAKE_BODY,
-        }
-    ],
+    snake: initialSnakePosition,
 
     food: {
         visible: true,
@@ -74,12 +80,12 @@ export const gamePartsSlice = createSlice({
     name: 'gameParts',
     initialState,
     reducers: {
-        setSnake: (state, action: PayloadAction<TSnake>) => {
-            if(action.payload.length === state.snake.length) {
-                state.snake = action.payload
+        setSnake: (state, action: PayloadAction<ISetState>) => {
+            if(action.payload.snake.length === state.snake.length || action.payload.restart) {
+                state.snake = action.payload.snake
             } else {
-                state.snake = [...action.payload, {...state.snake[state.snake.length - 1]}]
-            }
+                state.snake = [...action.payload.snake, {...state.snake[state.snake.length - 1]}]
+            }   
         },
         growSnake: (state) => {
             state.snake = [...state.snake, {...state.snake[state.snake.length - 1]}]

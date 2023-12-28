@@ -10,6 +10,8 @@ import Food from './components/Food/Food';
 import useMoveFood from './hooks/useMoveFood';
 import useMoveSnake from './hooks/moveSnake';
 import useCollisionTrigger from './hooks/CollisionPool/ColisionTrigger';
+import GameOverDialog from './components/Modal/GameOverDialog';
+import { createPortal } from 'react-dom';
 
 
 function App() {
@@ -28,7 +30,7 @@ function App() {
   const run = (path:TPath) => {
     if(status === 'play') {
       const newSnake = moveSnake({path,snake,onColide: collisionTrigger})
-      dispatch(setSnake(newSnake))
+      dispatch(setSnake({snake:newSnake}))
     }
     runRef.current = setTimeout(()=>run(path),velocity)
   }
@@ -71,13 +73,13 @@ function App() {
       clearTimeout(foodRunRef.current)
     }
   },[food, status])
-
   return (
     <div className="App">
       <Board>
         <Food left={food.left} top={food.top} visible={food.visible}/>
         <Snake snake={snake}/>
       </Board>
+      {status === 'over' && createPortal(<GameOverDialog />, document.body)}
     </div>
   );
 }
