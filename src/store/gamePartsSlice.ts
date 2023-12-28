@@ -11,7 +11,8 @@ interface IGamePartsState {
     snake: TSnake
     food: IFood
     coliders: IColider[]
-    board: IBoardLength
+    board: IBoardLength,
+    face: boolean,
 }
 
 interface ISetState {
@@ -73,7 +74,9 @@ const initialState: IGamePartsState = {
     board: {
         width: 0,
         height: 0,
-    }
+    },
+
+    face: false
 }
 
 export const gamePartsSlice = createSlice({
@@ -100,11 +103,22 @@ export const gamePartsSlice = createSlice({
         },
         setBoardLength: (state, action: PayloadAction<IBoardLength>) => {
             state.board = action.payload
+        },
+
+        setFace: (state, action: PayloadAction<boolean> ) => {
+            state.face = action.payload
         }
     }
 })
 
-export const {setSnake, growSnake, setFood, addColider, setBoardLength} = gamePartsSlice.actions
+export const {
+    setSnake, 
+    growSnake, 
+    setFood, 
+    addColider, 
+    setBoardLength, 
+    setFace
+} = gamePartsSlice.actions
 
 export const selectSnake = (state: RootState) => state.gameParts.snake
 
@@ -113,5 +127,7 @@ export const selectFood = (state: RootState) => state.gameParts.food
 export const selectColiders = (state: RootState) => state.gameParts.coliders
 
 export const selectBoardLength = (state: RootState) => state.gameParts.board
+
+export const selectFace = (state: RootState) => state.gameParts.face
 
 export default gamePartsSlice.reducer

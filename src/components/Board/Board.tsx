@@ -7,6 +7,7 @@ import { setGameStatus } from "../../store/gameControllerSlice"
 import { FaPause, FaPlay, FaStop } from "react-icons/fa"
 import { setBoardLength } from "../../store/gamePartsSlice"
 import { size } from "../../enums/Size"
+import HitFoodReactFace from "../HitFood/HitFoodReactionFace"
 
 interface IBoardProps {
     children: React.ReactNode,
@@ -69,6 +70,7 @@ const Board = ({children}:IBoardProps) => {
     return (
         <div id = "game_board" className="game_board">
             {children}
+            <HitFoodReactFace />
             <GameControll buttons={buttons}/>
         </div>
     )
