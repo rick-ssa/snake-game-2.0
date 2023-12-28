@@ -28,7 +28,6 @@ const Board = ({children}:IBoardProps) => {
             const width = calcGameLength(gameBoard?.clientWidth)
             const height = calcGameLength(gameBoard?.clientHeight)
             dispatch(setBoardLength({width, height}))
-            console.log(width, height)
         }
 
         window.addEventListener('resize', resize)
