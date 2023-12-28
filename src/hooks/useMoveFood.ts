@@ -8,6 +8,7 @@ const useMoveFood = () => {
     const snake = useAppSelector(state => state.gameParts.snake)
     const dispatch = useAppDispatch()
     const snakeHead = snake[0]
+    const boardLength = useAppSelector(state => state.gameParts.board)
 
     return (food:IFood):IFood => {
 
@@ -15,8 +16,8 @@ const useMoveFood = () => {
             return {...food, visible: false }
         } 
 
-        const left = calculePosition(snakeHead.left, 1000)
-        const top = calculePosition(snakeHead.top, 1000)
+        const left = calculePosition(snakeHead.left, boardLength.width)
+        const top = calculePosition(snakeHead.top, boardLength.height)
         dispatch(addColider({left, top, name: colidersName.COLIDER_FOOD}))
         return { left, top, visible: true}
     }
