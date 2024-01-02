@@ -1,4 +1,3 @@
-import ControllButton, { IControlButton } from "./controllButton/ControlButton";
 import "./styles.css"
 
 const GameControll = ({buttons}:{buttons:React.ReactElement[]}) => {
