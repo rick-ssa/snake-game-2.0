@@ -10,5 +10,8 @@
 
 .game_controlls_container {
     position: absolute;
-    left: 50%;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
