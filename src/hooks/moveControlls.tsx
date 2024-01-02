@@ -1,7 +1,7 @@
 import { keyboardArrows } from "../enums/KeyboardArrows"
 import { useAppDispatch } from "../hooks/redux"
 import { TGameStatus } from "../models/TGameStatus"
-import { setGameStatus, setPath } from "../store/gameControllerSlice"
+import { resetScore, setGameStatus, setPath } from "../store/gameControllerSlice"
 import { setSnake, initialSnakePosition, resetSnakeColider } from "../store/gamePartsSlice"
 
 const useMoveControls = () => {
@@ -20,6 +20,7 @@ export const useRestart = () => {
         dispatch(setPath({arrow: keyboardArrows.ARROW_RIGHT, direction: 'horizontal'}))
         dispatch(resetSnakeColider())
         dispatch(setGameStatus('pause'))
+        dispatch(resetScore())
     }
 }
 

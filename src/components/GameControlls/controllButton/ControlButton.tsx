@@ -4,7 +4,7 @@ import "./styles.css"
 export interface IControlButton {
     icon: ()=>IconType
     disabled?: boolean
-    onClick: () => {}
+    onClick: () => void
 }
 
 const ControllButton = ({icon, disabled = false, onClick}: IControlButton) => {
