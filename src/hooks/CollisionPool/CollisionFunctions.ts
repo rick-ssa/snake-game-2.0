@@ -1,4 +1,4 @@
-import { setGameStatus } from "../../store/gameControllerSlice"
+import { addScore, setGameStatus } from "../../store/gameControllerSlice"
 import { growSnake, setFace, setFood } from "../../store/gamePartsSlice"
 import { useAppDispatch, useAppSelector } from "../redux"
 
@@ -11,6 +11,7 @@ export const useFoodCollision = () => {
             dispatch(growSnake())
             dispatch(setFace(true))
             dispatch(setFood({...food, visible: false}))
+            dispatch(addScore(10))
         }
     }
 }

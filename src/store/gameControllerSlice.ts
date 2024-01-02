@@ -8,6 +8,7 @@ interface IGameControllerState {
     path: TPath
     gameStatus: TGameStatus
     velocity: number
+    score: number
 }
 
 const initialState: IGameControllerState = {
@@ -17,6 +18,7 @@ const initialState: IGameControllerState = {
     },
     gameStatus: 'play',
     velocity: 120,
+    score: 0,
 }
 
 export const gameControllerSlice = createSlice({
@@ -31,16 +33,24 @@ export const gameControllerSlice = createSlice({
         },
         setVelocity: (state, action: PayloadAction<number>) => {
             state.velocity = action.payload
+        },
+        addScore: (state, action: PayloadAction<number>) => {
+            state.score = state.score + action.payload
+        },
+        resetScore: (state) => {
+            state.score = 0
         }
     }
 })
 
-export const {setPath, setGameStatus, setVelocity} = gameControllerSlice.actions
+export const {setPath, setGameStatus, setVelocity, addScore, resetScore} = gameControllerSlice.actions
 
 export const selectDirection = (state: RootState) => state.gameController.path
 
 export const selectGameStatus = (state:RootState) => state.gameController.gameStatus
 
 export const selectVelocity = (state:RootState) => state.gameController.velocity
+
+export const selectScore = (state:RootState) => state.gameController.score
 
 export default gameControllerSlice.reducer
