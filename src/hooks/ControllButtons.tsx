@@ -13,14 +13,14 @@ export const useButtonsController = () => {
         <ControllButton  
             key = "play" 
             icon = {() => FaPlay}
-            disabled = {gameStatus === 'play' || gameStatus === 'over'} 
+            disabled = {gameStatus === 'play' || gameStatus === 'over' || gameStatus === 'stop'} 
             onClick = {()=>dispatch(setGameStatus('play'))}
         />,
 
         <ControllButton  
             key = "pause" 
             icon = {() => FaPause}
-            disabled = {gameStatus === 'pause' || gameStatus === 'over'} 
+            disabled = {gameStatus === 'pause' || gameStatus === 'over' || gameStatus === 'stop'} 
             onClick = {()=>dispatch(setGameStatus('pause'))}
         />,
 
